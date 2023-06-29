@@ -6,7 +6,7 @@ import axios from "axios";
 function PlacesPage() {
 	const [places, setPlaces] = useState([]);
 	useEffect(() => {
-		axios.get("/places").then(({ data }) => {
+		axios.get("/user-places").then(({ data }) => {
 			setPlaces(data);
 		});
 	}, []);
@@ -37,8 +37,8 @@ function PlacesPage() {
 				{places.length > 0 &&
 					places.map((place, index) => (
 						<Link to={'/account/places/'+place._id} className="bg-gray-100 gap-4 cursor-pointer flex p-4 rounded-2xl" key={index}>
-							<div className="flex w-32 h-32 bg-gray-300 grow shrink-0">
-								{place.photos.length > 0 && <img className="object-cover" src={'http://localhost:3000/uploads/'+place.photos[0]} alt="" />}
+							<div className="flex w-32 h-32 grow shrink-0">
+								{place.photos.length > 0 && <img className="object-cover rounded-full" src={'http://localhost:3000/uploads/'+place.photos[0]} alt="" />}
 							</div>
 							<div className="grow-0 shrink">
 								<h2 className="text-xl font-semibold">{place.title}</h2>

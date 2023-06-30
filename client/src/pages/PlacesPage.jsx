@@ -36,7 +36,7 @@ function PlacesPage() {
 			<div className="mt-4">
 				{places.length > 0 &&
 					places.map((place, index) => (
-						<Link to={'/account/places/'+place._id} className="bg-gray-100 gap-4 cursor-pointer flex p-4 rounded-2xl" key={index}>
+						<Link to={'/account/places/'+place._id} className="bg-gray-100 gap-4 cursor-pointer flex p-4 mb-3 rounded-2xl" key={index}>
 							<div className="flex w-32 h-32 grow shrink-0">
 								{place.photos.length > 0 && <img className="object-cover rounded-full" src={'http://localhost:3000/uploads/'+place.photos[0]} alt="" />}
 							</div>

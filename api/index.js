@@ -9,6 +9,7 @@ const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const User = require("./models/User");
 const Place = require("./models/Place");
+const BookingModel = require("./models/Booking");
 
 require("dotenv").config();
 
@@ -194,14 +195,50 @@ app.put("/places", async (req, res) => {
 				price,
 			});
 			await placeDoc.save();
-			res.json('done');
+			res.json("done");
 		}
 	});
 });
 
-app.get('/places',async (req,res)=>{
+function getUserDataFromReq(req) {
+	return new Promise((resolve, reject) => {
+		jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+			if (err) throw err;
+			resolve( userData);
+		});
+	});
+}
+
+app.get("/bookings", async (req, res) => {
+	const userData = await getUserDataFromReq(req);  
+	res.json(await BookingModel.find({user:userData.id}).populate("place"));
+});
+
+app.post("/bookings", async (req, res) => {
+	const userData = await getUserDataFromReq(req);
+	const { place, checkIn,checkOut, name, numberOfGuests, phone, amount } = req.body;
+	// console.log({ place, checkIn,checkOut, name, numberOfGuests, phone, amount});
+	BookingModel.create({
+		place,
+		user: userData.id,
+		checkIn,
+		checkOut,
+		name,
+		numberOfGuests,
+		phone,
+		price:amount,
+	})
+		.then((doc) => {
+			res.json(doc);
+		})
+		.catch((err) => {
+			throw err;
+		});
+});
+
+app.get("/places", async (req, res) => {
 	res.json(await Place.find());
-})
+});
 
 app.listen(3000, () => {
 	console.log("server is listening on port 3000");

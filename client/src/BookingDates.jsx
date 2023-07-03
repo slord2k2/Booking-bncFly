@@ -9,7 +9,7 @@ function BookingDates({ booking, className}) {
 				viewBox="0 0 24 24"
 				strokeWidth={1.5}
 				stroke="currentColor"
-				className="w-6 h-6 pt-1"
+				className="w-6 h-6 pt-1 pr-1"
 			>
 				<path
 					strokeLinecap="round"
@@ -20,8 +20,8 @@ function BookingDates({ booking, className}) {
 			{differenceInCalendarDays(
 				new Date(booking.checkOut),
 				new Date(booking.checkIn)
-			)}
-			nights:&nbsp;
+			)}{" "}
+			nights :&nbsp;
 			<div className="flex gap-1 items-center ml-2">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

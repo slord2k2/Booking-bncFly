@@ -19,7 +19,7 @@ function ProfilePage() {
 		const data = await axios.post("/logout");
 		setReditect("/");
 		setUser(null);
-		alert(data.data.message);
+		// alert(data.data.message);
 	}
 	if (!ready) {
 		return "Loading...";

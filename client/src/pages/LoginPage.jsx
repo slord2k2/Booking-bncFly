@@ -11,13 +11,17 @@ function LoginPage() {
 	async function handleLogin(ev) {
 		ev.preventDefault();
 		try {
-			const { data } = await axios.post("/login",{email,password,},{ withCredentials: true });
+			const { data } = await axios.post(
+				"/login",
+				{ email, password },
+				{ withCredentials: true }
+			);
 			// console.log(data);
 			setUser(data);
-			alert("Login successful");
+			// alert("Login successful");
 			setRedirect(true);
 		} catch (err) {
-			alert(err);
+			alert(err.response.data.alert);
 		}
 	}
 	if (redirect) {
